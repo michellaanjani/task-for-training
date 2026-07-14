@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- root menu -->
+    <menuitem id="menu_warehouse_root"
+        name="Warehouses"
+        sequence="10" />
+
+    <!-- parent menu 1 -->
+    <menuitem id="menu_inventory_root"
+        name="Inventories"
+        parent="menu_warehouse_root"
+        action="action_warehouse"
+        sequence="10" />
+
+    <!-- child1 action menu 1 -->
+    <!-- <menuitem id="menu_inventory"
+        name="Inventory Details"
+        parent="menu_inventory_root"
+        action="action_inventory"
+        sequence="10" /> -->
+    
+</odoo>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_warehouse_form" model="ir.ui.view">
+        <field name="name">res.inventories.form</field>
+        <field name="model">res.inventories</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" states="draft"
+                        confirm="Are you sure you want to confirm the inventory?"
+                        class="btn-primary" />
+                    <button name="action_done" type="object" string="Mark As Done" states="on_progress"
+                        confirm="Are you sure you want to mark as done?"
+                        class="btn-success" />
+                    <button name="action_draft" type="object" string="Set To Draft" states="cancel"
+                        confirm="Are you sure you want to reset to draft?"
+                        class="btn-primary" />
+                    <button name="action_cancel" type="object" string="Cancel"
+                        states="draft,on_progress,loaded"
+                        confirm="Are you sure you want to cancel the inventory?"
+                        class="btn-danger" />
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,on_progress,loaded,cancel" />
+                </header>
+                <sheet>
+                    <div class="ose_title">
+                        <h1>
+                            <field name="code" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name" />
+                        <field name="code" />
+                        <field name="date" />
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <field name="inventories_lines_ids" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="product_id" />
+                                    <field name="description" />
+                                    <field name="qty" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id" />
+                                        <field name="description" />
+                                        <field name="qty" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warehouse_tree" model="ir.ui.view">
+        <field name="name">res.inventories.tree</field>
+        <field name="model">res.inventories</field>
+        <field name="arch" type="xml">
+            <tree expand="1">
+                <field name="id" />
+                <field name="code" />
+                <field name="name" />
+                <field name="date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_warehouse_kanban" model="ir.ui.view">
+        <field name="name">res.inventories.kanban</field>
+        <field name="model">res.inventories</field>
+        <field name="arch" type="xml">
+            <kanban default_order="code asc">
+                <field name="id" />
+                <field name="code" />
+                <field name="name" />
+                <field name="date" />
+                <field name="state" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>Name: <field name="name" /></li>
+                                    <li>Code: <field name="code" /></li>
+                                    <li>State: <field name="state" /></li>
+                                    <li>Date: <field name="date" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_warehouse_search" model="ir.ui.view">
+        <field name="name">res.inventories.search</field>
+        <field name="model">res.inventories</field>
+        <field name="arch" type="xml">
+            <search string="Warehouse Inventory">
+                <field name="name" />
+                <field name="code" />
+                <field name="date" />
+                <!-- <field name="description" /> -->
+                
+                <!-- <separator /> -->
+                <!-- <filter string="Male" name="male" domain="[('gender', '=', 'male')]" />
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]" />
+                <filter string="Other" name="other" domain="[('gender', '=', 'other')]" /> -->
+<!-- 
+                <group expand="1" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}" />
+                    <filter string="Patient Name" name="patient_id" context="{'group_by':'name'}" />
+                    <filter string="Responsible" name="responsible_id"
+                        context="{'group_by':'responsible_id'}" />
+                </group> -->
+            </search>
+        </field>
+    </record>
+
+    <record id="action_warehouse" model="ir.actions.act_window">
+        <field name="name">Warehouse Inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.inventories</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <!-- <field name="context">{'search_default_responsible_id':1, 'search_default_female': 1}</field> -->
+        <!-- <field name="context">{'search_default_gender': 1}</field> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Create your first warehouse inventory!
+            </p>
+        </field>
+    </record>
+</odoo>
