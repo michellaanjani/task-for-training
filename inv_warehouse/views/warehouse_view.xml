@@ -107,37 +107,22 @@
         <field name="name">res.inventories.search</field>
         <field name="model">res.inventories</field>
         <field name="arch" type="xml">
-            <search string="Warehouse Inventory">
+            <search string="Inventory">
                 <field name="name" />
                 <field name="code" />
                 <field name="date" />
-                <!-- <field name="description" /> -->
-                
-                <!-- <separator /> -->
-                <!-- <filter string="Male" name="male" domain="[('gender', '=', 'male')]" />
-                <filter string="Female" name="female" domain="[('gender', '=', 'female')]" />
-                <filter string="Other" name="other" domain="[('gender', '=', 'other')]" /> -->
-<!-- 
-                <group expand="1" string="Group By">
-                    <filter string="Gender" name="gender" context="{'group_by':'gender'}" />
-                    <filter string="Patient Name" name="patient_id" context="{'group_by':'name'}" />
-                    <filter string="Responsible" name="responsible_id"
-                        context="{'group_by':'responsible_id'}" />
-                </group> -->
             </search>
         </field>
     </record>
 
     <record id="action_warehouse" model="ir.actions.act_window">
-        <field name="name">Warehouse Inventory</field>
+        <field name="name">Inventory</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.inventories</field>
         <field name="view_mode">tree,form,kanban</field>
-        <!-- <field name="context">{'search_default_responsible_id':1, 'search_default_female': 1}</field> -->
-        <!-- <field name="context">{'search_default_gender': 1}</field> -->
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
-                Create your first warehouse inventory!
+                Create your first inventory!
             </p>
         </field>
     </record>
