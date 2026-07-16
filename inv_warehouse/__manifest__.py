@@ -3,7 +3,7 @@
 
 {
     'name' : 'Warehouse Management',
-    'version' : '1.0.0.1',
+    'version' : '1.0.0.2',
     'summary': 'Warehouse management Software',
     'sequence': 10,
     'description': """Warehouse Management Software""",

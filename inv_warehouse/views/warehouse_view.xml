@@ -20,12 +20,12 @@
                         confirm="Are you sure you want to cancel the inventory?"
                         class="btn-danger" />
 
-                    <field name="state" widget="statusbar" statusbar_visible="draft,on_progress,loaded,cancel" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,on_progress,loaded" />
                 </header>
                 <sheet>
                     <div class="ose_title">
                         <h1>
-                            <field name="code" readonly="1" />
+                            <field name="name" readonly="1" />
                         </h1>
                     </div>
                     <group>

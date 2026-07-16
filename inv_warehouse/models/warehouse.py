@@ -7,8 +7,8 @@ class WarehousesInventory(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     # _order = 'code desc'
     
-    name = fields.Char(string='Name', required=True, tracking=True)
-    code = fields.Char(string='Code', default=lambda self: _("New"), copy=False, readonly=True, tracking=True)
+    name = fields.Char(string='Name', default=lambda self: _("New"), copy=False, readonly=True, tracking=True)
+    code = fields.Char(string='Code', required=True, tracking=True)
     date = fields.Datetime(string='Date', required=True, default=fields.Datetime.now, tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -27,8 +27,8 @@ class WarehousesInventory(models.Model):
     def create(self, vals_list):
         seq = self.env["ir.sequence"]
         for vals in vals_list:
-            if vals.get("code", _("New")) == _("New"):
-                vals["code"] = seq.next_by_code("res.inventories") or _("New")
+            if vals.get("name", _("New")) == _("New"):
+                vals["name"] = seq.next_by_code("res.inventories.name") or _("New")
         return super().create(vals_list)
     
     def action_confirm(self):
