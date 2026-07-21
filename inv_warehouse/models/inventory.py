@@ -6,7 +6,7 @@ class Inventories(models.Model):
     _description = "Inventory"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     
-    name = fields.Char(string='Name', related='product_id.display_name', store=True, readonly=True)
+    name = fields.Char(string='Reference', copy=False, readonly=True)
     product_id = fields.Many2one('product.product', string='Product', required=True, index=True, tracking=True)
     qty = fields.Integer(string='Qty', required=True, default=1, tracking=True)
     description = fields.Text(string='Description', tracking=True)

@@ -35,14 +35,16 @@
                     </group>
                     <notebook>
                         <page string="Products" name="products">
-                            <field name="inventories_lines_ids" widget="one2many_list">
+                            <field name="inventories_lines_ids" widget="one2many_list" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                 <tree editable="bottom">
+                                    <field name="name" attrs="{'column_invisible': [('parent.state', '=', 'draft')]}" />
                                     <field name="product_id" />
                                     <field name="description" />
                                     <field name="qty" />
                                 </tree>
                                 <form>
                                     <group>
+                                        <field name="name" attrs="{'invisible': [('parent.state', '=', 'draft')]}" />
                                         <field name="product_id" />
                                         <field name="description" />
                                         <field name="qty" />

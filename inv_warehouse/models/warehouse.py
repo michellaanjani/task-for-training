@@ -1,5 +1,5 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 class WarehousesInventory(models.Model):
     _name = "res.inventories"
@@ -31,14 +31,30 @@ class WarehousesInventory(models.Model):
                 vals["name"] = seq.next_by_code("res.inventories.name") or _("New")
         return super().create(vals_list)
     
+    def _set_inventory_line_names(self):
+        if not self.name or self.name == _("New"):
+            raise UserError(_("Inventory sequence pada field Name belum terisi."))
+
+        clicked_dt = fields.Datetime.context_timestamp(self, fields.Datetime.now())
+        clicked_dt_str = clicked_dt.strftime('%d%m%Y %H:%M')
+
+        for line in self.inventories_lines_ids:
+            product_name = line.product_id.name or ''
+            line.name = '%s - %s - %s' % (product_name, self.name, clicked_dt_str)
+    
     def action_confirm(self):
+        self.ensure_one()
+        self._set_inventory_line_names()
         self.state = 'on_progress'
         
     def action_done(self):
+        self.ensure_one()
         self.state = 'loaded'
         
     def action_draft(self):
+        self.ensure_one()
         self.state = 'draft'  
         
     def action_cancel(self):
+        self.ensure_one()
         self.state = 'cancel'    
